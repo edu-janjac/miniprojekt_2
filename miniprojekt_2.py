@@ -24,11 +24,27 @@ def spara_highscore(highscore_lista, filnamn="highscore.json"):
 # === SPELMECKANIK ===
 
 def spela_omgang():
+    
+    okända_talet = random.randint(1, 100)
+    gissningar = 0
+    
+    print("\nGissa talet mellan 1 och 100")
+
     while True:
-         
+        try:
+            gissning = int(input("Din gissning: "))
+        except ValueError:
+            print("Ange ett heltal.")
+        continue
+        
+        antal_gissningar += 1
 
-
-# === HIGHSCORE-VISNING ===
+        if gissning < okända_talet:
+            print("för lågt")
+        elif gissning > okända_talet:
+            print("för högt")
+        else:
+            print(f"korrekt, du gissade på {antal_gissningar} försök")
 
 def visa_highscore(highscore_lista):
     """
