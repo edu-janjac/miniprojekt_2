@@ -35,7 +35,7 @@ def spela_omgang():
             gissning = int(input("Din gissning: "))
         except ValueError:
             print("Ange ett heltal.")
-        continue
+            continue
         
         antal_gissningar += 1
 
@@ -45,19 +45,18 @@ def spela_omgang():
             print("för högt")
         else:
             print(f"korrekt, du gissade på {antal_gissningar} försök")
+            return antal_gissningar
 
 def visa_highscore(highscore_lista):
-    """
-    Visar highscore-listan sorterad med bästa spelaren först.
+    if not highscore_lista:
+        print("\ningen highscore än.")
+        return
     
-    Parametrar:
-        highscore_lista (list): Listan som ska visas
-    """
-    # TODO: Implementera funktionen
-    # Tips: Kontrollera om listan är tom först
-    # Tips: Sortera med sorted() och key=lambda x: x["gissningar"]
-    # Tips: Använd enumerate() för att numrera spelarna från 1
-    pass
+    sorterad = sorted(highscore_lista, key=lambda x: x["gissningar"])
+
+    print("\n=== HIGHSCORE ===")
+    for plats, post in enumerate(sorted, start=1):
+        print(f"{plats}. {post['namn']} - {post['gissningar']} gissningar")
 
 
 # === HUVUDPROGRAM ===
