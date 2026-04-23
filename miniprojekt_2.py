@@ -26,7 +26,7 @@ def spara_highscore(highscore_lista, filnamn="highscore.json"):
 def spela_omgang():
     
     okända_talet = random.randint(1, 100)
-    gissningar = 0
+    antal_gissningar = 0
     
     print("\nGissa talet mellan 1 och 100")
 
@@ -55,34 +55,39 @@ def visa_highscore(highscore_lista):
     sorterad = sorted(highscore_lista, key=lambda x: x["gissningar"])
 
     print("\n=== HIGHSCORE ===")
-    for plats, post in enumerate(sorted, start=1):
+    for plats, post in enumerate(sorterad, start=1):
         print(f"{plats}. {post['namn']} - {post['gissningar']} gissningar")
 
 
 # === HUVUDPROGRAM ===
 
 def huvudprogram():
-    """
-    Huvudprogrammet som styr menyn och programflödet.
-    """
-    # TODO: Implementera huvudprogrammet
-    # 1. Ladda highscore med ladda_highscore()
-    # 2. Skapa en while-loop som visar menyn
-    # 3. Menyn ska ha alternativen:
-    #    1. Spela ny omgång
-    #    2. Visa highscore
-    #    3. Avsluta
-    # 4. Vid val 1:
-    #    - Anropa spela_omgang() för att få antalet gissningar
-    #    - Fråga efter spelarens namn
-    #    - Skapa en dictionary {"namn": namn, "gissningar": antal}
-    #    - Lägg till i highscore-listan
-    #    - Spara med spara_highscore()
-    # 5. Vid val 2: anropa visa_highscore()
-    # 6. Vid val 3: avsluta loopen
-    pass
+    highscore_lista = ladda_highscore()
+
+    while True:
+        print("\n=== HIGH OR LOW ===")
+        print("1. spela ny omgång")
+        print("2. visa highscore")
+        print("3. avsluta")
+
+        val = input("välj alternativ: ").strip()
+
+        if val == "1":
+            antal = spela_omgang()
+            namn = input("ange ditt namn: ").strip()
+            if not namn:
+                namn = "anonym"
+            highscore_lista.append({"namn": namn, "gissningar": antal})
+            spara_highscore(highscore_lista)
+            print("din poäng har sparats")
+        elif val == "2":
+            visa_highscore(highscore_lista)
+        elif val == "3":
+            print("bye bye")
+            break
+        else:
+            print("ogiltig val, försök igen")
 
 
-# Starta programmet om filen körs direkt
 if __name__ == "__main__":
     huvudprogram()
